@@ -1,0 +1,119 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+    <h:head>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"/>
+    </h:head>
+    <h:body>
+        <div class="container mt-5">
+            
+                <h3>Welcome to your App</h3>
+                <h:form >
+                <p>
+                    <h:commandButton value="Logout" action="#{logout.logout()}" class="btn btn-primary" />
+                </p>
+            </h:form>
+                <h:dataTable value="#{assignService.getAssignByEmail(login.email)}" var="a"
+                             styleClass="table table-striped table-bordered">
+
+                    <f:facet name="header">
+                        <h:outputText value="Assignments" />
+                    </f:facet>
+
+                    <h:column>
+                        <f:facet name="header">ID</f:facet>
+                        <h:outputText value="#{a.id}" />
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">Task</f:facet>
+                        <h:outputText value="#{a.task.taskName}" />
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">Task Status</f:facet>
+                        <h:outputText value="#{a.task.taskStatus}" styleClass="#{a.task.taskStatus eq 'closed' ? 'badge badge-danger' : a.task.taskStatus eq 'in_progress' ? 'badge badge-warning' : a.task.taskStatus eq 'on_hold' ?'badge badge-info':'badge badge-success'}"
+                        />
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Action</f:facet>
+                        <h:commandButton value="view detail" onclick="showEditForm('#editForm_#{a.id}')" class="btn btn-primary" />
+                    </h:column>
+                </h:dataTable>
+
+                <ui:repeat value="#{assignService.getAssignByEmail(login.email)}" var="a">
+                    <div id="editForm_#{a.id}" class="modal fade" tabindex="-1" role="dialog">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                                <h:form>
+                                    <div class="modal-header">
+                                        <h4 class="modal-title">Edit Employee</h4>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true"></span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <h:dataTable value="#{assignService.getAssignByEmail(login.email)}" var="as"
+                                        styleClass="table table-striped table-bordered">
+                                        <h:column>
+                                            <f:facet name="header">Task</f:facet>
+                                            <h:outputText value="#{as.task.taskName}" />
+                                        </h:column>
+
+                                        <h:column>
+                                            <f:facet name="header">Task Description</f:facet>
+                                            <h:outputText value="#{as.task.taskDescription}" />
+                                        </h:column>
+
+                                        <h:column>
+                                            <f:facet name="header">Start Date</f:facet>
+                                            <h:outputText value="#{as.task.taskStartDate}" />
+                                        </h:column>
+
+                                        <h:column>
+                                            <f:facet name="header">End Date</f:facet>
+                                            <h:outputText value="#{as.task.taskEndDate}" />
+                                        </h:column>
+                                    </h:dataTable>
+                                    <div class="form-group">
+                                        <h:outputLabel value="Status:" for="taskStatus" />
+                                        <h:selectOneMenu id="taskStatus" value="#{a.task.taskStatus}" styleClass="form-control">
+                                          <f:selectItem itemValue="in_progress" itemLabel="In Progress"/>
+                                          <f:selectItem itemValue="on_hold" itemLabel="On Hold"/>
+                                          <f:selectItem itemValue="complete" itemLabel="Complete"/>
+                                        </h:selectOneMenu>
+                                      </div>                                      
+                                    </div>
+                                    <div class="modal-footer">
+                                        <h:commandButton value="Update" action="#{taskService.updateTaskStatus(a.task.taskId,a.task.taskStatus)}" styleClass="btn btn-primary" />
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    </div>
+                                </h:form>
+                            </div>
+                        </div>
+                    </div>
+                </ui:repeat>
+            
+            <script>
+                function showEditForm(formId) {
+                    $(formId).modal('show');
+                }
+            </script>
+
+                <br />
+
+                <p>
+                    <h:outputText value="Logged in as: #{login.email}" />
+                </p>
+            
+        </div>
+        <!-- jQuery library -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    </h:body>
+</html>

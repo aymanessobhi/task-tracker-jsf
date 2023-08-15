@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+<head>
+    <title>Edit Project</title>
+</head>
+<body>
+    <h:form>
+        <h:panelGrid columns="2">
+            <h:outputLabel value="Name:" for="name" />
+            <h:inputText id="name" value="#{editProject.name}" required="true" />
+
+            <h:outputLabel value="Description:" for="description" />
+            <h:inputText id="description" value="#{editProject.description}" required="true" />
+
+            <h:outputLabel value="Start Date:" for="startDate" />
+            <input type="date" id="startDate" name="startDate" value="#{editProject.startDate}" required="true"/>
+            
+            <h:outputLabel value="End Date:" for="endDate" />
+            <input type="date" id="endDate" name="endDate" value="#{editProject.endDate}" required="true"/>
+            
+            <h:outputLabel value="Status:" for="status" />
+            <h:inputText id="status" value="#{editProject.status}" required="true" />
+
+            <h:commandButton value="Save" action="#{projectService.update(editProject)}" />
+            <h:commandButton value="Cancel" action="#{projectService.cancelEdit}" />
+        </h:panelGrid>
+    </h:form>
+    </body>
+</html>

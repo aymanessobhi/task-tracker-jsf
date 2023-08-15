@@ -1,0 +1,13 @@
+estm/dsic/jee/controllers/FacesApp.class
+estm/dsic/jee/controllers/Project.class
+estm/dsic/jee/services/IProject.class
+estm/dsic/jee/services/ITask.class
+estm/dsic/jee/dal/UserDao.class
+estm/dsic/jee/services/TaskService.class
+estm/dsic/jee/services/ProjectService.class
+estm/dsic/jee/controllers/Task.class
+estm/dsic/jee/controllers/Logout.class
+estm/dsic/jee/controllers/Login.class
+estm/dsic/jee/dal/TaskDao.class
+estm/dsic/jee/dal/ProjectDao.class
+estm/dsic/jee/services/UserServices.class

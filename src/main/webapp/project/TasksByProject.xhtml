@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<h:head>
+    <title>List Tasks</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"/>
+</h:head>
+
+<h:body>
+    <div class="container">
+        <div class="jumbotron">
+        <h1>List of Tasks</h1>
+            <hr class="my-4"/>
+            <h:link value="Home" outcome="/appManager.html" class="btn btn-primary"/><h:outputText value=" " />
+            <h:commandButton value="Add Assignement" styleClass="btn btn-primary" onclick="showModal()"/>
+        </div>
+        <h:dataTable value="#{tasks}" var="t" styleClass="table table-striped table-bordered">
+            <h:column>
+                <f:facet name="header">Task Name</f:facet>
+                #{t.taskName}
+            </h:column>
+            <h:column>
+                <f:facet name="header">Description</f:facet>
+                #{t.taskDescription}
+            </h:column>
+            <h:column>
+                <f:facet name="header">Start Date</f:facet>
+                #{t.taskStartDate}
+            </h:column>
+            <h:column>
+                <f:facet name="header">End Date</f:facet>
+                #{t.taskEndDate}
+            </h:column>
+            <h:column>
+                <f:facet name="header">Status</f:facet>
+                #{t.taskStatus}
+            </h:column>
+        </h:dataTable>
+    </div>
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true"></span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <h:form class="form-horizontal">
+                    <div class="form-group">
+                        <h:outputLabel for="task" class="col-sm-2 control-label">Task:</h:outputLabel>
+                        <div class="col-sm-10">
+                        <h:selectOneMenu id="task" value="#{assign.task.taskId}" required="true" class="form-control">
+                            <f:selectItems value="#{unassignedTasks}" var="t" itemLabel="#{t.taskName}" itemValue="#{t.taskId}" />
+                        </h:selectOneMenu>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <h:outputLabel for="employee" class="col-sm-2 control-label">Employee:</h:outputLabel>
+                        <div class="col-sm-10">
+                        <h:selectOneMenu id="employee" value="#{assign.employee.id}" required="true" class="form-control">
+                            <f:selectItems value="#{employeeService.getEmployeesWithoutAssignment()}" var="e" itemLabel="#{e.user.firstName} #{e.user.lastName}" itemValue="#{e.id}" />
+                        </h:selectOneMenu>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+                        <h:commandButton value="Save" action="#{assignService.createAssigns(assign)}" class="btn btn-primary" />
+                        </div>
+                    </div>
+                    </h:form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<!-- jQuery library -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+            <script>
+                function showModal() {
+                    $('#myModal').modal('show');
+                }
+            </script>
+</h:body>
+</html>

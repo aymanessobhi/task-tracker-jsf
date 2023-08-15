@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:p="http://primefaces.org/ui">
+  <head>
+    <title>My Page</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"/>
+  </head>
+  <body>
+    <div class="container">
+       
+        <div class="jumbotron">
+          <h1 class="display-4">Welcome to your App Manager</h1>
+          <p class="lead">Here you can manage your projects and tasks</p>
+          <hr class="my-4"/>
+          <h:commandButton value="Add Project" styleClass="btn btn-primary" onclick="showModal()"/> <br/>
+        </div>
+        <h:form>
+          <p>
+            <h:commandButton value="logout" action="#{logout.logout()}" class="btn btn-secondary"/><h:outputText value=" " />
+            <h:commandButton value="Add project" action="#{projectService.getAllProjects()}" class="btn btn-primary"/><h:outputText value=" " />
+            <h:commandButton value="Employees" action="manager/listEmployees.xhtml" class="btn btn-primary"/><h:outputText value=" " />
+            <h:commandButton value="Tasks" action="#{taskService.getAllTasks()}" class="btn btn-primary"/><h:outputText value=" " />
+            <h:commandButton value="Assigns" action="manager/listAssigns.xhtml" class="btn btn-primary"/><h:outputText value=" " />
+          </p>
+          <h:dataTable value="#{projectService.allProjects()}" var="p" class="table table-striped">
+            <h:column>
+              <f:facet name="header">
+                <h:outputText value="Name"/>
+              </f:facet>
+              <h:outputText value="#{p.name}"/>
+            </h:column>
+            <h:column>
+              <f:facet name="header">
+                <h:outputText value="Description"/>
+              </f:facet>
+              <h:outputText value="#{p.description}"/>
+            </h:column>
+            <h:column>
+              <f:facet name="header">
+                <h:outputText value="Start Date"/>
+              </f:facet>
+              <h:outputText value="#{p.startDate}"/>
+            </h:column>
+            <h:column>
+              <f:facet name="header">
+                <h:outputText value="End Date"/>
+              </f:facet>
+              <h:outputText value="#{p.endDate}"/>
+            </h:column>
+            <h:column>
+              <f:facet name="header">
+                <h:outputText value="Status"/>
+              </f:facet>
+              <h:outputText value="#{p.status}"/>
+            </h:column>
+            <h:column>
+            <f:facet name="header">
+                <h:outputText value="Action"/>
+            </f:facet>
+            <h:commandButton value="Edit" class="btn btn-info" action="#{projectService.edit(p.id)}" update=":editProjectDialog" /><h:outputText value=" " />
+            <h:commandButton value="Delete" class="btn btn-info" action="#{projectService.delete(p.id)}" />
+          </h:column>
+          </h:dataTable>
+        <h:outputLabel value="Logged in as: "/>
+        <h:outputText value="#{login.email}" class="font-weight-bold"/>
+      </h:form>
+        
+      <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true"></span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                  
+                  <h:form>
+                    <h:panelGrid columns="2">
+                        <h:outputLabel value="Name:" for="name" />
+                        <h:inputText id="name" value="#{project.name}" required="true" />
+            
+                        <h:outputLabel value="Description:" for="description" />
+                        <h:inputText id="description" value="#{project.description}" required="true" />
+            
+                        <h:outputLabel for="startDate" value="Start Date" />
+
+                        <h:inputText value="#{project.startDate}">  
+                          <f:convertDateTime pattern="yyyy/MM/dd"/>  
+                        </h:inputText>
+                    
+                        
+                       
+                        <h:outputLabel value="End Date:" for="endDate" />
+                        <input type="date" id="endDate" name="endDate" value="#{project.endDate}" required="true"/>
+                        
+                        <h:outputLabel value="Status:" for="status" />
+                        <h:inputText id="status" value="#{project.status}" required="true" />
+            
+                        <h:commandButton value="Save" action="#{projectService.create(project)}" />
+                    </h:panelGrid>
+                </h:form>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    <!-- jQuery library -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    <script>
+        function showModal() {
+            $('#myModal').modal('show');
+        }
+    </script>
+  </body>
+</html>

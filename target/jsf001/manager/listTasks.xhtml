@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<h:head>
+    <title>List Tasks</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+          crossorigin="anonymous"/>
+</h:head>
+
+<h:body>
+    <div class="container">
+        <h1>List of Tasks</h1>
+
+        <h:dataTable value="#{taskService.AllTasks()}" var="t" styleClass="table table-striped table-bordered">
+            <h:column>
+                <f:facet name="header">Task Name</f:facet>
+                #{t.taskName}
+            </h:column>
+            <h:column>
+                <f:facet name="header">Description</f:facet>
+                #{t.taskDescription}
+            </h:column>
+            <h:column>
+                <f:facet name="header">Start Date</f:facet>
+                #{t.taskStartDate}
+            </h:column>
+            <h:column>
+                <f:facet name="header">End Date</f:facet>
+                #{t.taskEndDate}
+            </h:column>
+            <h:column>
+                <f:facet name="header">Status</f:facet>
+                #{t.taskStatus}
+            </h:column>
+            <h:column>
+                <f:facet name="header">Project Name</f:facet>
+                #{t.proj_id}
+            </h:column>
+        </h:dataTable>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+            crossorigin="anonymous"></script>
+</h:body>
+</html>

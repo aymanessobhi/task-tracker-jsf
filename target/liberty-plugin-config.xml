@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<liberty-plugin-config>
+    <installDirectory>/home/ayman/Desktop/jsf001/jsf001/target/liberty/wlp</installDirectory>
+    <serverDirectory>/home/ayman/Desktop/jsf001/jsf001/target/liberty/wlp/usr/servers/jsf001Server</serverDirectory>
+    <userDirectory>/home/ayman/Desktop/jsf001/jsf001/target/liberty/wlp/usr</userDirectory>
+    <serverOutputDirectory>/home/ayman/Desktop/jsf001/jsf001/target/liberty/wlp/usr/servers/jsf001Server</serverOutputDirectory>
+    <serverName>jsf001Server</serverName>
+    <configDirectory>/home/ayman/Desktop/jsf001/jsf001/src/main/liberty/config</configDirectory>
+    <configFile>/home/ayman/Desktop/jsf001/jsf001/src/main/liberty/config/server.xml</configFile>
+    <appsDirectory>apps</appsDirectory>
+    <looseApplication>true</looseApplication>
+    <stripVersion>false</stripVersion>
+    <installAppPackages>project</installAppPackages>
+    <applicationFilename>jsf001.war.xml</applicationFilename>
+    <assemblyArtifact>
+        <groupId>io.openliberty</groupId>
+        <artifactId>openliberty-runtime</artifactId>
+        <version>23.0.0.4</version>
+        <type>zip</type>
+    </assemblyArtifact>
+    <assemblyArchive>/home/ayman/.m2/repository/io/openliberty/openliberty-runtime/23.0.0.4/openliberty-runtime-23.0.0.4.zip</assemblyArchive>
+    <assemblyInstallDirectory>/home/ayman/Desktop/jsf001/jsf001/target/liberty</assemblyInstallDirectory>
+    <refresh>false</refresh>
+    <installAppsConfigDropins>/home/ayman/Desktop/jsf001/jsf001/target/liberty/wlp/usr/servers/jsf001Server/configDropins/defaults/install_apps_configuration_1491924271.xml</installAppsConfigDropins>
+    <projectType>war</projectType>
+    <projectCompileDependency>jakarta.platform:jakarta.jakartaee-web-api:9.0.0</projectCompileDependency>
+    <warSourceDirectory>/home/ayman/Desktop/jsf001/jsf001/src/main/webapp</warSourceDirectory>
+</liberty-plugin-config>

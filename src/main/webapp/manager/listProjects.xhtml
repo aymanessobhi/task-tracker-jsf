@@ -1,0 +1,47 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"/>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+
+</head>
+    <h:outputStylesheet library="css" name="table.css" />
+
+    <h:dataTable value="#{projectService.allProjects()}" var="p" styleClass="table table-hover">
+        <h:column styleClass="column">
+            <f:facet name="header">
+                <h:outputText value="Name"/>
+            </f:facet>
+            <h:outputText value="#{p.name}" styleClass="column-content"/>
+        </h:column>
+        <h:column styleClass="column">
+            <f:facet name="header">
+                <h:outputText value="Description"/>
+            </f:facet>
+            <h:outputText value="#{p.description}" styleClass="column-content"/>
+        </h:column>
+        <h:column styleClass="column">
+            <f:facet name="header">
+                <h:outputText value="Start Date"/>
+            </f:facet>
+            <h:outputText value="#{p.startDate}" styleClass="column-content"/>
+        </h:column>
+        <h:column styleClass="column">
+            <f:facet name="header">
+                <h:outputText value="End Date"/>
+            </f:facet>
+            <h:outputText value="#{p.endDate}" styleClass="column-content"/>
+        </h:column>
+        <h:column styleClass="column">
+            <f:facet name="header">
+                <h:outputText value="Status"/>
+            </f:facet>
+            <h:outputText value="#{p.status}" styleClass="column-content"/>
+        </h:column>
+    </h:dataTable>
+
+</html>

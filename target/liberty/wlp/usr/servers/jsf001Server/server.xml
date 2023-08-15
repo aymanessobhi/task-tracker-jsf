@@ -1,0 +1,42 @@
+<!-- 
+ (C) Copyright IBM Corporation 2017.
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+<server description="Sample Servlet server">
+    
+    
+    <featureManager>
+        <feature>cdi-3.0</feature>
+        <feature>faces-3.0</feature>
+        <feature>jdbc-4.2</feature>
+    </featureManager>
+    <library id="jdbcLib">
+        <fileset dir="jdbc" includes="*.jar"/>
+    </library>
+    
+    <dataSource id="DefaultDataSource" jndiName="jdbc/mydb">
+        <jdbcDriver libraryRef="jdbcLib"/>
+        <connectionManager maxPoolSize="20" minPoolSize="5" 
+        connectionTimeout="20s" agedTimeout="30m"/>
+        <properties serverName="localhost" portNumber="3306"
+                    databaseName="m_project"
+                    user="root"
+                    password="ayman@2003"/>
+    </dataSource>
+    
+    
+    <httpEndpoint httpPort="9081" httpsPort="9443" id="defaultHttpEndpoint" />
+    
+    <webApplication id="jsf001" location="jsf001.war" name="jsf001"/>
+</server>

@@ -1,0 +1,21 @@
+********************************************************************************
+product = Open Liberty 23.0.0.1 (wlp-1.0.73.cl230120230123-2118)
+wlp.install.dir = /home/ayman/Desktop/jsf001/jsf001/target/liberty/wlp/
+server.output.dir = /home/ayman/Desktop/jsf001/jsf001/target/liberty-alt-output-dir/jsf001Server/
+java.home = /usr/lib/jvm/java-11-openjdk-amd64
+java.version = 11.0.17
+java.runtime = OpenJDK Runtime Environment (11.0.17+8-post-Ubuntu-1ubuntu222.04)
+os = Linux (5.15.0-60-generic; amd64) (en_US)
+process = 644966@ayman-HP-EliteBook-840-G3
+Classpath = /home/ayman/Desktop/jsf001/jsf001/target/liberty/wlp/bin/tools/ws-server.jar
+Java Library path = /usr/java/packages/lib:/usr/lib/x86_64-linux-gnu/jni:/lib/x86_64-linux-gnu:/usr/lib/x86_64-linux-gnu:/usr/lib/jni:/lib:/usr/lib
+********************************************************************************
+[3/6/23, 23:01:08:843 WEST] 0000000c com.ibm.ws.kernel.launch.internal.FrameworkManager           A CWWKE0001I: The server jsf001Server has been launched.
+[3/6/23, 23:01:14:073 WEST] 0000000c com.ibm.ws.kernel.launch.internal.FrameworkManager           I CWWKE0002I: The kernel started after 5.65 seconds
+[3/6/23, 23:01:14:328 WEST] 00000025 com.ibm.ws.kernel.feature.internal.FeatureManager            I CWWKF0007I: Feature update started.
+[3/6/23, 23:01:16:481 WEST] 00000025 com.ibm.ws.kernel.feature.internal.FeatureManager            A CWWKF0012I: The server installed the following features: [cdi-3.0, expressionLanguage-4.0, faces-3.0, jdbc-4.2, pages-3.0, servlet-5.0].
+[3/6/23, 23:01:16:482 WEST] 00000025 com.ibm.ws.kernel.feature.internal.FeatureManager            I CWWKF0008I: Feature update completed in 2.399 seconds.
+[3/6/23, 23:01:16:482 WEST] 00000025 com.ibm.ws.kernel.feature.internal.FeatureManager            A CWWKF0026I: The server jsf001Server is ready to build a smaller package.
+[3/6/23, 23:01:16:504 WEST] 0000002d com.ibm.ws.runtime.update.internal.RuntimeUpdateManagerImpl  A CWWKE1100I: Waiting for up to 30 seconds for the server to quiesce.
+[3/6/23, 23:01:16:527 WEST] 0000002d com.ibm.ws.runtime.update.internal.RuntimeUpdateManagerImpl  I CWWKE1101I: Server quiesce complete.
+[3/6/23, 23:01:16:913 WEST] 0000000c com.ibm.ws.kernel.launch.internal.FrameworkManager           A CWWKE0036I: The server jsf001Server stopped after 8.492 seconds.

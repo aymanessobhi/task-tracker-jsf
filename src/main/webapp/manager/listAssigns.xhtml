@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<h:head>
+    <title>List Tasks</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"/>
+</h:head>
+
+<h:body>
+    <div class="container">
+        <div class="jumbotron">
+        
+        <h1>List of Assignements</h1>
+            <hr class="my-4"/>
+            <h:link value="Home" outcome="/appManager.html" class="btn btn-primary"/><h:outputText value=" " />
+        </div>
+        <h:form id="form_assign">
+          <h:messages id="messages" class="alert alert-success" />
+        <h:dataTable value="#{assignService.allAssignments()}" var="a" styleClass="table table-striped table-bordered">
+            <h:column>
+                <f:facet name="header">ID</f:facet>
+                #{a.id}
+            </h:column>
+            <h:column>
+                <f:facet name="header">Task Name</f:facet>
+                #{a.task.taskName}
+            </h:column>
+            <h:column>
+                <f:facet name="header">Employee Name</f:facet>
+                #{a.employee.user.firstName} #{a.employee.user.lastName}
+            </h:column>
+            <h:column>
+                <f:facet name="header">Action</f:facet>
+                <h:commandButton value="Delete" class="btn btn-info" action="#{assignService.delete(a.id)}" />
+            </h:column>
+        </h:dataTable>
+    </h:form>
+</div>
+
+    
+<!-- jQuery library -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+
+</h:body>
+</html>

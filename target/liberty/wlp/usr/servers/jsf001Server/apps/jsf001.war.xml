@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<archive>
+    <dir sourceOnDisk="/home/ayman/Desktop/jsf001/jsf001/src/main/webapp" targetInArchive="/"/>
+    <dir sourceOnDisk="/home/ayman/Desktop/jsf001/jsf001/target/classes" targetInArchive="/WEB-INF/classes"/>
+    <file sourceOnDisk="/home/ayman/.m2/repository/jakarta/platform/jakarta.jakartaee-web-api/9.0.0/jakarta.jakartaee-web-api-9.0.0.jar" targetInArchive="/WEB-INF/lib/jakarta.jakartaee-web-api-9.0.0.jar"/>
+    <file sourceOnDisk="/home/ayman/Desktop/jsf001/jsf001/target/tmp/META-INF/MANIFEST.MF" targetInArchive="/META-INF/MANIFEST.MF"/>
+</archive>

@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:head>
+    <title>List Tasks</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"/>
+</h:head>
+
+<h:body>
+    <div class="container">
+        <div class="jumbotron">
+        
+        <h1>List of Employees</h1>
+            <hr class="my-4"/>
+            <h:link value="Home" outcome="/appManager.html" class="btn btn-primary"/><h:outputText value=" " />
+            <h:commandButton value="Add Employee" styleClass="btn btn-primary" onclick="showModal()"/>
+        </div>
+        
+    <h:dataTable value="#{employeeService.allEmployees()}" var="e" styleClass="table table-striped table-bordered">
+        <h:column>
+            <f:facet name="header">First Name</f:facet>
+            #{e.user.firstName}
+        </h:column>
+        <h:column>
+            <f:facet name="header">Last Name</f:facet>
+            #{e.user.lastName}
+        </h:column>
+        <h:column>
+            <f:facet name="header">Email</f:facet>
+            #{e.user.email}
+        </h:column>
+        <h:column>
+            <f:facet name="header">Department</f:facet>
+            #{e.department}
+        </h:column>
+        <h:column>
+            <f:facet name="header">Action</f:facet>
+            <h:commandButton value="Edit" class="btn btn-info" onclick="showEditForm('#editForm_#{e.id}')" />
+        <h:form>
+            <h:commandButton value="Delete" class="btn btn-info" action="#{employeeService.delete(e.id)}" />
+        </h:form>
+        </h:column>
+    </h:dataTable>
+
+    <ui:repeat value="#{employeeService.allEmployees()}" var="e">
+        <div id="editForm_#{e.id}" class="modal fade" tabindex="-1" role="dialog">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <h:form>
+                        <div class="modal-header">
+                            <h4 class="modal-title">Edit Employee</h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true"></span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                                <div class="form-group">
+                                    <h:outputLabel value="First Name:" for="firstName" />
+                                    <h:inputText id="firstName" value="#{e.user.firstName}" required="true" styleClass="form-control" />
+                                </div>
+                                <div class="form-group">
+                                    <h:outputLabel value="Last Name:" for="lastName" />
+                                    <h:inputText id="lastName" value="#{e.user.lastName}" required="true" styleClass="form-control" />
+                                </div>
+                                <div class="form-group">
+                                    <h:outputLabel value="Email:" for="email" />
+                                    <h:inputText id="email" value="#{e.user.email}" required="true" styleClass="form-control" />
+                                </div>
+                                <div class="form-group">
+                                    <h:outputLabel value="Password:" for="password" />
+                                    <h:inputSecret id="password" value="#{e.user.passwd}" required="true" styleClass="form-control" />
+                                </div>
+                                <div class="form-group">
+                                    <h:outputLabel value="Department:" for="department" />
+                                    <h:inputText id="department" value="#{e.department}" required="true" styleClass="form-control" />
+                                </div>
+                        </div>
+                        <div class="modal-footer">
+                            <h:commandButton value="Update" action="#{employeeService.update(e)}" styleClass="btn btn-primary" />
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        </div>
+                    </h:form>
+                </div>
+            </div>
+        </div>
+    </ui:repeat>
+
+<script>
+    function showEditForm(formId) {
+        $(formId).modal('show');
+    }
+</script>
+
+
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true"></span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <h:form>
+                            <h:panelGrid columns="2">
+                                <h:outputLabel value="First Name:" for="firstName" />
+                                    <h:inputText id="firstName" value="#{employee.user.firstName}" required="true" />
+                                    
+                                    <h:outputLabel value="Last Name:" for="lastName" />
+                                    <h:inputText id="lastName" value="#{employee.user.lastName}" required="true" />
+                                    
+                                    <h:outputLabel value="Email:" for="email" />
+                                    <h:inputText id="email" value="#{employee.user.email}" required="true" />
+                                    
+                                    <h:outputLabel value="Password:" for="password" />
+                                    <h:inputSecret id="password" value="#{employee.user.passwd}" required="true" />
+                                    
+                                    <h:outputLabel value="Department:" for="department" />
+                                    <h:inputText id="department" value="#{employee.department}" required="true" />
+                                    
+                                    <h:commandButton value="Create" action="#{employeeService.create(employee)}" />
+                            </h:panelGrid>
+                        </h:form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+    </div>
+</div>
+
+    
+<!-- jQuery library -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+            <script>
+                function showModal() {
+                    $('#myModal').modal('show');
+                }
+            </script>
+</h:body>
+</html>

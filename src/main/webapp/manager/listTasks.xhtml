@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:head>
+    <title>List Tasks</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css" integrity="sha256-7a7jK0R0zW7N1Qvq3e7AVuKoxDdV85Uu11vBOCMjKzg=" crossorigin="anonymous" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js" integrity="sha256-PKx/CtPdJtY9nkGcJZdciIjmxlFeZq3yJjs4y4t8Wxg=" crossorigin="anonymous"></script>
+    
+
+</h:head>
+
+<h:body>
+    <div class="container">
+        <div class="jumbotron">
+        <h1>List of Tasks</h1>
+            <hr class="my-4"/>
+            <h:link value="Home" outcome="/appManager.html" class="btn btn-primary"/><h:outputText value=" " />
+            <h:commandButton value="Add Task" styleClass="btn btn-primary" onclick="showModal()"/>
+        </div>
+          <h:messages id="messages" class="alert alert-success" />
+        <h:dataTable value="#{taskService.allTasks()}" var="t" styleClass="table table-striped table-bordered">
+            <h:column>
+                <f:facet name="header">Task Name</f:facet>
+                #{t.taskName}
+            </h:column>
+            <h:column>
+                <f:facet name="header">Description</f:facet>
+                #{t.taskDescription}
+            </h:column>
+            <h:column>
+                <f:facet name="header">Start Date</f:facet>
+                #{t.taskStartDate}
+            </h:column>
+            <h:column>
+                <f:facet name="header">End Date</f:facet>
+                #{t.taskEndDate}
+            </h:column>
+            <h:column>
+                <f:facet name="header">Status</f:facet>
+                #{t.taskStatus}
+            </h:column>
+            <h:column>
+                <f:facet name="header">Project Name</f:facet>
+                #{t.project.name}
+            </h:column>
+            <h:column>
+                <f:facet name="header">Action</f:facet>
+                <h:commandButton value="Edit" class="btn btn-info" onclick="showEditForm('#editForm_#{t.taskId}')" />
+                <h:form>
+                    <h:commandButton value="Delete" class="btn btn-info" action="#{taskService.deleteTaskById(t.taskId)}" />
+                </h:form>
+            </h:column>
+        </h:dataTable>
+        <ui:repeat value="#{taskService.allTasks()}" var="t">
+            <div id="editForm_#{t.taskId}" class="modal fade" tabindex="-1" role="dialog">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <h:form>
+                            <div class="modal-header">
+                                <h4 class="modal-title">Edit Task</h4>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true"></span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="form-group">
+                                    <h:outputLabel value="Task Name:" for="taskName" />
+                                    <h:inputText id="taskName" value="#{t.taskName}" required="true" styleClass="form-control" />
+                                </div>
+                                <div class="form-group">
+                                    <h:outputLabel value="Description:" for="taskDescription" />
+                                    <h:inputText id="taskDescription" value="#{t.taskDescription}" required="true" styleClass="form-control" />
+                                </div>
+                                <div class="form-group">
+                                    <h:outputLabel value="Start Date:" for="taskStartDate" />
+                                    <h:inputText id="taskStartDate" value="#{t.taskStartDate}" required="true" styleClass="form-control" />
+                                </div>
+                                <div class="form-group">
+                                    <h:outputLabel value="End Date:" for="taskEndDate" />
+                                    <h:inputText id="taskEndDate" value="#{t.taskEndDate}" required="true" styleClass="form-control" />
+                                </div>
+                                <div class="form-group">
+                                    <h:outputLabel value="Status:" for="taskStatus" />
+                                    <h:selectOneMenu id="taskStatus" value="#{t.taskStatus}" required="true" styleClass="form-control">
+                                      <f:selectItem itemValue="in_progress" itemLabel="In Progress" />
+                                      <f:selectItem itemValue="on_hold" itemLabel="On Hold" />
+                                      <f:selectItem itemValue="complete" itemLabel="Complete" />
+                                      <f:selectItem itemValue="declined" itemLabel="Declined" />
+                                      <f:selectItem itemValue="closed" itemLabel="Closed" />
+                                      <f:selectItem itemValue="open" itemLabel="Open" />
+                                    </h:selectOneMenu>
+                                  </div>
+                                  <div class="form-group">
+                                    <h:outputLabel for="employee" class="col-sm-2 control-label">Project:</h:outputLabel>
+                                    
+                                    <h:selectOneMenu id="employee" value="#{t.project.id}" required="true" class="form-control">
+                                        <f:selectItems value="#{projectService.allProjects()}" var="p" itemLabel="#{p.name}" itemValue="#{p.id}" />
+                                    </h:selectOneMenu>
+                                    
+                                </div>
+                                  
+                        </div>
+                        <div class="modal-footer">
+                            <h:commandButton value="Update" action="#{taskService.updateTask(t)}" styleClass="btn btn-primary" />
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        </div>
+                    </h:form>
+                </div>
+            </div>
+        </div>
+    </ui:repeat>
+
+<script>
+    function showEditForm(formId) {
+        $(formId).modal('show');
+    }
+</script>
+ 
+ 
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true"></span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <h:form>
+                    <div class="form-group">
+                        <h:outputLabel for="name" class="col-sm-2 control-label">Name:</h:outputLabel>
+                        
+                        <h:inputText id="name" value="#{task.taskName}" required="true" class="form-control" />
+                        
+                    </div>
+
+                    <div class="form-group">
+                        <h:outputLabel for="description" class="col-sm-2 control-label">Description:</h:outputLabel>                     
+                        <h:inputText id="description" value="#{task.taskDescription}" required="true" class="form-control" />
+                        
+                    </div>
+
+                    <div class="form-group">
+                        <h:outputLabel for="startDate" class="col-sm-2 control-label">Start Date:</h:outputLabel>
+                        
+                        <h:inputText type="date" id="startDate" name="startDate" value="#{task.taskStartDate}" required="true" class="form-control datepicker" data-bs-provide="datepicker" data-date-format="yyyy-mm-dd"/>
+                        
+                    </div>
+
+                    <div class="form-group">
+                        <h:outputLabel for="endDate" value="End Date:" />
+                        <h:inputText id="endDate" class="form-control" value="#{task.taskEndDate}" required="true" data-bs-provide="datepicker" data-date-format="yyyy-mm-dd" />
+                      </div>
+                    <div class="form-group">
+                        <h:outputLabel for="employee" class="col-sm-2 control-label">Project:</h:outputLabel>
+                        
+                        <h:selectOneMenu id="employee" value="#{task.project.id}" required="true" class="form-control">
+                            <f:selectItems value="#{projectService.allProjects()}" var="p" itemLabel="#{p.name}" itemValue="#{p.id}" />
+                        </h:selectOneMenu>
+                        
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+                        <h:commandButton value="Submit" action="#{taskService.createTask(task)}" class="btn btn-default" />
+                        </div>
+                    </div>
+                    </h:form>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- jQuery library -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+            <script>
+                function showModal() {
+                    $('#myModal').modal('show');
+                }
+                $(document).ready(function() {
+                    $('.datepicker').datepicker();
+                });
+            </script>
+</h:body>
+</html>

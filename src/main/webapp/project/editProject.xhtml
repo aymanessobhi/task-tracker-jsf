@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<head>
+    <title>Edit Project</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"/>
+
+</head>
+<body>
+  <h:form id="form_project">
+    <h:messages id="messages" class="alert alert-danger" />
+  <div class="form-group">
+    <h:outputLabel for="name" class="col-sm-2 control-label">Name:</h:outputLabel>
+    <h:inputText id="name" value="#{editProject.name}" required="true" class="form-control" />
+  </div>
+
+  <div class="form-group">
+    <h:outputLabel for="description" class="col-sm-2 control-label">Description:</h:outputLabel>
+    <h:inputText id="description" value="#{editProject.description}" required="true" class="form-control" />
+  </div>
+
+  <div class="form-group">
+    <h:outputLabel for="startDate" class="col-sm-2 control-label">Start Date:</h:outputLabel>
+    <h:inputText type="date" id="startDate" name="startDate" value="#{editProject.startDate}" required="true" class="form-control datepicker" data-bs-provide="datepicker" data-date-format="yyyy-mm-dd"/>
+  </div>
+
+  <div class="form-group">
+    <h:outputLabel for="endDate" class="col-sm-2 control-label">End Date:</h:outputLabel>
+    <h:inputText type="date" id="endDate" name="endDate" value="#{editProject.endDate}" required="true" class="form-control datepicker" data-bs-provide="datepicker" data-date-format="yyyy-mm-dd"/>
+  </div>
+
+  <div class="form-group">
+    <h:outputLabel for="status" class="col-sm-2 control-label">Status:</h:outputLabel>
+    <h:selectOneMenu id="status" value="#{editProject.status}" required="true" class="form-control">
+      <f:selectItem itemValue="open" itemLabel="Open"/>
+      <f:selectItem itemValue="closed" itemLabel="Closed"/>
+      <f:selectItem itemValue="declined" itemLabel="Declined"/>
+    </h:selectOneMenu>
+  </div>
+
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+      <h:commandButton value="Submit" action="#{projectService.update(editProject)}" class="btn btn-default" />
+    </div>
+  </div>
+</h:form>
+    </body>
+</html>

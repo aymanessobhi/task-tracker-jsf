@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+<head>
+    <title>Edit Task</title>
+</head>
+<body>
+    <h:form>
+        <h:panelGrid columns="2">
+            <h:link value="Home" outcome="/appManager.html" class="btn btn-primary"/><h:outputText value=" " />
+            <h:outputLabel value="Name:" for="name" />
+            <h:inputText id="name" value="#{editTask.taskName}" required="true" />
+
+            <h:outputLabel value="Description:" for="description" />
+            <h:inputText id="description" value="#{editTask.taskDescription}" required="true" />
+
+            <h:outputLabel value="Start Date:" for="startDate" />
+            <input type="date" id="startDate" name="startDate" value="#{editTask.taskStartDate}" required="true"/>
+            
+            <h:outputLabel value="End Date:" for="endDate" />
+            <input type="date" id="endDate" name="endDate" value="#{editTask.taskEndDate}" required="true"/>
+            
+            <h:outputLabel value="Status:" for="status" />
+            <h:inputText id="status" value="#{editTask.taskStatus}" required="true" />
+
+            <h:outputLabel value="Project:" for="project" />
+            <p:selectOneMenu id="project" value="#{editTask.project}" converter="projectConverter" required="true">
+                <f:selectItem itemValue="#{null}" itemLabel="-- Select Project --" />
+                <f:selectItems value="#{projectService.getAllProjects()}" var="project" itemValue="#{project}" itemLabel="#{project.name}" />
+            </p:selectOneMenu>
+
+            <h:commandButton value="Save" action="#{taskService.update(editTask)}" />
+            <h:commandButton value="Cancel" action="#{taskService.cancelEdit}" />
+        </h:panelGrid>
+    </h:form>
+</body>
+</html>
